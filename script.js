@@ -1,6 +1,6 @@
-const container = document.getElementById('test')
+const container = document.getElementById('main-card-body')
 
-text = "hello there how are you i'm very fine"
+text = "hello There how are you i'm very fine"
 
 function renderPage(text) {
     let html_codes = ''
@@ -77,11 +77,11 @@ if (current < text.length) {
 
 document.addEventListener('keydown',handlekeydown)
 
-
+let sec = 60
 
 setTimeout(() => {
     calculateResult()
-}, 1000*20);
+}, 1000*sec);
 
 function calculateResult(){
     const accuracy = 100-Math.round((totalWrongPressed/totalPressed) *100)
@@ -100,3 +100,10 @@ function calculateResult(){
 // testing 
 // const fithelem = document.querySelector('#letter5')
 // console.log(fithelem.innerText)
+
+
+
+
+
+
+

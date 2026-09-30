@@ -1,20 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Speed Test</title>
+    <title>Test Your typing Speed</title>
+    <meta name="description" content="Typing Speed Tester | Test Your Typing Speed | Best Typing Speed Tester">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon//favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon//favicon-16x16.png">
+    <link rel="manifest" href="images/favicon//site.webmanifest">
+
     <link rel="stylesheet" href="style.css">
+
 </head>
-<body>
-    <h1>testing</h1>
-    <h2>warning: this project hasn't done yet,there might be some error</h2>
-    <div id="test" >
+<body >
+    <header>
+        <nav>
+            <ul>
+                <li id="main-logo"><h1><img src="images/logo.png" alt="logo"> Type Fast</h1></li>
+                <li><a href="index.html">Test</a></li>
+                <li><a href="about.html">About</a></li>
+                <!-- <li>
+                    <button><img src="images/light_mode.png" alt=""></button>
+                    <button><img src="images/dark_mode.png" alt=""></button>
+                </li> -->
+            </ul>
+        </nav>
+    </header>
 
-    </div>
-    <div class="result">
+    <main>
+        <section id="hero-section">
+            <h2>Test Your Typing Speed</h2>
+            <p>Press the first letter of text to start</p>
+        </section>
 
-    </div>
+        <section id="app-container">
+            <section id="typing">
+            <div id="typing-head">
+                <ul>
+                    <li id="logo"><img src="images/logo.png" alt="logo"></li>
+                    <li id="dropdown">
+                        <label for="time-select"><img src="images/timer.png" alt=""></label>
+                        <select name="time-select" id="time-select">
+                            <option value="60">1 minute</option>
+                            <option value="120">2 minutes</option>
+                            <option value="180">3 minutes</option>
+                            <option value="300">5 minutes</option>
+                        </select>
+                    </li>
+                    <li><button>Change Text</button></li>
+                    <li>
+                        <button>
+                            <img src="images/sound_on.png" alt="sound-on">
+                            <!-- <img src="images/sound_off.png" alt="sound-off"> -->
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div id="typing-body">
+                <!-- from js -->
+            </div>
+        </section>
+
+        <section id="result-section">
+            <div class="result-card"><p class="result">30</p><p>Word / Minute</p></div>
+            <div class="result-card"><p class="result">300</p><p>Letter / Minute</p></div>
+            <div class="result-card"><p>Accuracy:</p><p class="result">90%</p></div>
+            <div class="result-card"><p>Total Key Pressed:</p><p class="result">340</p></div>
+            <div class="result-card"><p>Total Wrong Pressed:</p><p class="result">17</p></div>
+            <div class="result-card"><p>Total Rigth Pressed:</p><p class="result">323</p></div>
+        </section>
+        </section>
+
+        
+
+        
+        <button>Text Again</button>
+    </main>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
     <script src="script.js"></script>
 </body>
 </html>
