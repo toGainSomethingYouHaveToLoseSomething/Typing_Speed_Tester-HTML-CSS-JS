@@ -36,7 +36,7 @@
     <main>
         <section id="hero-section">
             <h2>Test Your Typing Speed</h2>
-            <p>Press the first letter of text to start</p>
+            <p>Press any key to start</p>
         </section>
 
         <section id="app-container">
@@ -54,9 +54,9 @@
                                 <option value="300">5 minutes</option>
                             </select>
                         </li>
-                        <li><button>Change Text</button></li>
+                        <li><button id="change-btn" onclick="changeText()">Change Text</button></li>
                         <li>
-                            <button>
+                            <button id="sound-btn" onclick="toggleSound()">
                                 <img src="images/sound_on.png" alt="sound-on">
                                 <!-- <img src="images/sound_off.png" alt="sound-off"> -->
                             </button>
@@ -105,9 +105,12 @@
 
     </main>
 
+    <!-- <button onclick="start()">start</button> -->
+    
     <script src="script.js"></script>
 </body>
 
 </html>
 
 
+(text end error) (auto scroll) (reset) (sound)

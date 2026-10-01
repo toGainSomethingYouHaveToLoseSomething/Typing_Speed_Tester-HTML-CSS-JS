@@ -138,6 +138,10 @@ main #hero-section{
         color: var(--color-text);
         cursor: pointer;
     }
+    button[disabled]{
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
     #dropdown{
         margin: auto;
         display: flex;
@@ -190,23 +194,31 @@ main #hero-section{
     border-radius: 10px;
     overflow: auto;
     scrollbar-width: none;
-    font-size: 2rem;
+    font-size: 3rem;
     padding: 2rem;
 }
 
+
 #typing #typing-body p{
-    #test .active{
+    .active{
         color: rgb(39, 7, 219);
         border-bottom: solid 3px rgb(39, 7, 219);
     }
 
-    #test .passed{
+    .passed{
         color: green;
     }
 
-    #test .wrong{
+    .wrong{
         color: red;
         /* border-bottom: solid 3px red; */
+    }
+    .wrong.space{
+        color: red;
+        border-bottom: solid 3px red;
+    }
+    .space{
+        padding: 0 0.2rem;
     }
 }
 
