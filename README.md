@@ -1,1 +1,0 @@
-# Typing_Speed_Tester-HTML-CSS-JS
