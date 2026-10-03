@@ -304,6 +304,7 @@ function testAgain(){
         current = 0
         id = "#letter" + current
         changeText()
+        scrollContainer.scrollTop = 0
         timerElement.innerText = `0:00`
         wpmElement.innerHTML = `<p class="result">0</p> <p>WPM</p>`
         lpmElement.innerHTML = `<p class="result">0</p> <p>LPM</p>`
