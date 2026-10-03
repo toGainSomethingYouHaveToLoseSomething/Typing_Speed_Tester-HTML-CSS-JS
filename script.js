@@ -215,18 +215,17 @@ Intellectual humility is valuable in such situations. Saying â€œI may be wrongâ€
 Ultimately, better decision-making does not require eliminating emotion, intuition, or personal experience. These elements are deeply integrated into human cognition and can sometimes provide valuable information. The objective is to understand their influence and combine them with deliberate reasoning when the circumstances demand it. Good decisions emerge from asking precise questions, identifying assumptions, considering alternatives, examining evidence, recognizing uncertainty, and remaining willing to revise conclusions when new information becomes available.
 
 The ability to think clearly is not a permanent achievement that someone either possesses or lacks. It is a skill that can be practiced, strengthened, and refined. Every difficult problem provides an opportunity to examine assumptions; every mistake can reveal a weakness in reasoning; every disagreement can expose a perspective that was previously overlooked. In a world filled with rapidly changing information, persuasive narratives, algorithmically selected content, and increasingly sophisticated technologies, the capacity to pause, question, investigate, and think independently may become one of the most practical forms of personal competence.
-`,
-    'hello there how are you man what is your plan'
+`
 ]
 // remove last element from texts array
 
 const changeTextButton = document.querySelector('#change-btn')
 const dropdown = document.querySelector('#time-select')
 const soundButton = document.querySelector('#sound-btn')
-let soundOn = true
-
+let timerInterval
 let isTimerStarted = false
 
+const timerElement = document.querySelector('#timer')
 const wpmElement = document.querySelector('#wpm')
 const lpmElement = document.querySelector('#lpm')
 const accuracyElement = document.querySelector('#accuracy')
@@ -234,11 +233,29 @@ const totalKeyPressedElement = document.querySelector('#total-key')
 const totalWrongKeyPressedElement = document.querySelector('#wrong-key')
 const totalRightKeyPressedElement = document.querySelector('#right-key')
 
+const scrollContainer = document.querySelector('#typing-body')
+
+let soundOn = true
+const soundRightPressed = new Audio('sounds/rightClick.wav')
+const soundWrongPressed = new Audio('sounds/wrong-cut.wav')
+const soundBackspacePressed = new Audio('sounds/backspace-cut.wav')
+const gameOverSound = new Audio('sounds/gameOver.mp3')
+
+let wordCount = 0
+let totalPressed = 0;
+let totalWrongPressed = 0;
+let totalRigthPressed = 0;
+let current = 0
+let id = "#letter" + current
+
 let text = texts[Math.floor((Math.random() * 100) % (texts.length))]
+// let text = 'hello there how are you man what is your plan'
+
 function changeText() {
     text = texts[Math.floor((Math.random() * 100) % (texts.length))]
     textRender(text)
     selectFirstLetter()
+    startTyping()
 }
 
 function calculate(secondDone) {
@@ -266,16 +283,43 @@ function toggleSound() {
         soundImage.setAttribute('src', 'images/sound_on.png')
         soundOn = true
     }
+
+}
+
+function endOfTest(){
+    clearInterval(timerInterval)
+    document.removeEventListener('keydown', handleKeyPress)
+}
+
+function testAgain(){
+    endOfTest()
+        changeTextButton.disabled = false
+        dropdown.disabled = false
+        isTimerStarted = false
+        wordCount = 0
+        totalPressed = 0;
+        totalWrongPressed = 0
+        totalRigthPressed = 0
+
+        current = 0
+        id = "#letter" + current
+        changeText()
+        timerElement.innerText = `0:00`
+        wpmElement.innerHTML = `<p class="result">0</p> <p>WPM</p>`
+        lpmElement.innerHTML = `<p class="result">0</p> <p>LPM</p>`
+        accuracyElement.innerHTML = `<p class="result">0%</p> <p>Accuracy</p>`
+        totalKeyPressedElement.innerHTML = `<p class="result">0</p> <p>Total Key Pressed</p>`
+        totalWrongKeyPressedElement.innerHTML = `<p>Total Wrong Pressed</p><p class="result">0</p>`
+        totalRightKeyPressedElement.innerHTML = `<p>Total Right Pressed</p><p class="result">0</p>`
 }
 
 // timer starts here;
-const timerElement = document.querySelector('#timer')
 function startTimer(time) {
     totalSec = time
     // sound effect for timer start
     changeTextButton.disabled = true
     dropdown.disabled = true
-    const timerInterval = setInterval(() => {
+    timerInterval = setInterval(() => {
         const min = Math.floor(totalSec / 60)
         const sec = totalSec - ((min) * 60)
         let StringSec = ''
@@ -283,11 +327,8 @@ function startTimer(time) {
         else StringSec = '' + sec
         timerElement.innerText = `${min}:${StringSec}`
         if (totalSec === 0) {
-            // sound effect for timer end
-            clearInterval(timerInterval)
-            changeTextButton.disabled = false
-            dropdown.disabled = false
-            document.removeEventListener('keydown', handleKeyPress)
+            endOfTest()
+            gameOverSound.play()
         }
         totalSec--
         calculate(time - totalSec)
@@ -305,7 +346,6 @@ function startTimer(time) {
 const text_container = document.querySelector('#text-container')
 function textRender(text) {
     const words = text.split(' ')
-    console.log(words)
     let html_codes = ''
     let i = 0
     words.forEach(word => {
@@ -328,13 +368,7 @@ textRender(text)
 
 
 //main logic starts here;
-let wordCount = 0
-let totalPressed = 0;
-let totalWrongPressed = 0;
-let totalRigthPressed = 0;
 
-let current = 0
-let id = "#letter" + current
 
 function selectFirstLetter() {
     current = 0
@@ -352,16 +386,22 @@ function handleKeyPress(event) {
         startTimer(totalSec)
         isTimerStarted = true
     }
-
+    if(current >= text.length){
+        gameOverSound.play()
+        endOfTest()
+        return
+    }
     const activeElement = document.querySelector('.active')
-
+    event.preventDefault()
     const keyPressed = event.key
     const actualValue = text[current]
 
     if (keyPressed !== 'Shift') {
         if (keyPressed === 'Backspace') {
             if (current > 0) {
-                // sound effect for letter backspace
+                if(soundOn){
+                    soundBackspacePressed.play()
+                }
                 totalPressed--
                 totalKeyPressedElement.innerHTML = `<p class="result">${totalPressed}</p> <p>Total Key Pressed</p>`
                 const activeElement = document.querySelector('.active')
@@ -385,9 +425,11 @@ function handleKeyPress(event) {
                     prevElement.classList.remove('passed')
                 }
                 prevElement.classList.add('active')
+                // console.log(prevElement.offsetTop)
+                scrollContainer.scrollTop = prevElement.offsetTop - 299
             }
             else {
-                //sound or alert for first letter backspace
+                soundWrongPressed.play()
             }
         }
         else {
@@ -398,14 +440,18 @@ function handleKeyPress(event) {
                 wordCount++
             }
             if (keyPressed === actualValue || (actualValue === ' ' && keyPressed === 'Enter')) {
-                // sound effect for correct letter
+                if(soundOn){
+                    soundRightPressed.play()
+                }
                 totalRigthPressed++
                 totalRightKeyPressedElement.innerHTML = `<p>Total Right Pressed</p><p class="result">${totalRigthPressed}</p>`
                 activeElement.classList.remove('active')
                 activeElement.classList.add('passed')
             }
             else {
-                // sound effect for wrong letter
+                if(soundOn){
+                    soundWrongPressed.play()
+                }
                 totalWrongPressed++
                 totalWrongKeyPressedElement.innerHTML = `<p>Total Wrong Pressed</p><p class="result">${totalWrongPressed}</p>`
                 activeElement.classList.remove('active')
@@ -415,6 +461,9 @@ function handleKeyPress(event) {
             id = "#letter" + current
             const nextElement = document.querySelector(id)
             nextElement.classList.add('active')
+            // console.log(nextElement.offsetTop) 
+            scrollContainer.scrollTop = nextElement.offsetTop - 299
+
         }
     }
 }
@@ -424,5 +473,6 @@ function startTyping() {
 }
 startTyping()
 // main logic ends here;
+
 
 

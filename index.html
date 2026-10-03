@@ -56,15 +56,15 @@
                         </li>
                         <li><button id="change-btn" onclick="changeText()">Change Text</button></li>
                         <li>
-                            <button id="sound-btn" onclick="toggleSound()">
+                            <div id="sound-btn" onclick="toggleSound()">
                                 <img src="images/sound_on.png" alt="sound-on">
                                 <!-- <img src="images/sound_off.png" alt="sound-off"> -->
-                            </button>
+                            </div>
                         </li>
                     </ul>
                 </div>
-                <div id="typing-body">
-                    <p id="text-container">
+                <div id="typing-body" disabled>
+                    <p id="text-container" disabled>
                         <!-- from js -->
                     </p>
                 </div>
@@ -92,7 +92,7 @@
                     <p class="result">0</p>
                 </div>
                 <div id="right-key" class="result-card">
-                    <p>Total Rigth Pressed:</p>
+                    <p>Total Right Pressed:</p>
                     <p class="result">0</p>
                 </div>
             </aside>
@@ -100,7 +100,7 @@
 
 
         <div id="again-btn">
-            <button>Test Again</button>
+            <div id="tst-Btn" onclick="testAgain()">Test Again</div>
         </div>
 
     </main>
@@ -112,5 +112,3 @@
 
 </html>
 
-
-(text end error) (auto scroll) (reset) (sound)

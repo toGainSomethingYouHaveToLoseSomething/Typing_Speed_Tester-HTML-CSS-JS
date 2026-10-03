@@ -127,7 +127,7 @@ main #hero-section{
     #logo{
         margin-right: auto;
     }
-    button{
+    button, #sound-btn{
         height: 2rem;
         padding: .2rem .5rem;
         border: none;
@@ -137,6 +137,9 @@ main #hero-section{
         font-weight: 900;
         color: var(--color-text);
         cursor: pointer;
+        focus{
+            outline: none;
+        }
     }
     button[disabled]{
         opacity: 0.5;
@@ -220,6 +223,8 @@ main #hero-section{
     .space{
         padding: 0 0.2rem;
     }
+
+
 }
 
 
@@ -284,7 +289,11 @@ main #hero-section{
     align-items: center;
     margin: 1rem 0;
 
-    button{
+    #tst-Btn{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         height: 2rem;
         padding: .2rem .5rem;
         border: none;
@@ -294,6 +303,9 @@ main #hero-section{
         font-weight: 900;
         color: var(--color-text);
         cursor: pointer;
+        focus{
+            outline: none;
+        }
     }
 }
 
